@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import RichTextEditor from "@/components/TextEditor";
 import { toast } from "sonner";
-import { fetchCreateBlog } from "@/features/blogSloce";
+import { fetchCreateBlog } from "@/features/blogSlice";
 
 const formSchema = z.object({
   title: z

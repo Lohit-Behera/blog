@@ -2,6 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl } from "@/lib/proxy";
 
+type Blog = {
+  _id: string;
+  title: string;
+  content: string;
+  author: string;
+  authorName: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export const fetchCreateBlog = createAsyncThunk(
   "blog/create",
   async (blog: { title: string; content: string }, { rejectWithValue }) => {
@@ -82,7 +92,7 @@ const blogSlice = createSlice({
     createBlogStatus: "idle",
     createBlogError: {},
 
-    getBlog: null,
+    getBlog: { data: {} as Blog },
     getBlogStatus: "idle",
     getBlogError: {},
 
