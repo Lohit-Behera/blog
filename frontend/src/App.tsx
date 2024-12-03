@@ -7,21 +7,51 @@ import {
 } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 
+import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./Layout";
 import HomePage from "@/pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import CreatePage from "./pages/CreatePage";
 import BlogPage from "./pages/BlogPage";
+import ContactPage from "./pages/ContactPage";
+import PageNotFound from "./pages/Error/PageNotFound";
+import TokenExpired from "./pages/TokenExpired";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route index element={<HomePage />} />
+      <Route path="*" element={<PageNotFound />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/create" element={<CreatePage />} />
-      <Route path="/post/:blogId" element={<BlogPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/token-expired" element={<TokenExpired />} />
+
+      {/* Protected Route */}
+      <Route
+        index
+        element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/create"
+        element={
+          <ProtectedRoute>
+            <CreatePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/post/:blogId"
+        element={
+          <ProtectedRoute>
+            <BlogPage />
+          </ProtectedRoute>
+        }
+      />
     </Route>
   ),
   {

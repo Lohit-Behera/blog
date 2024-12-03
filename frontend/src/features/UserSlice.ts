@@ -215,4 +215,5 @@ const userSlice = createSlice({
 });
 
 export const { reSignIn, resetUserDetails } = userSlice.actions;
+
 export default userSlice.reducer;
