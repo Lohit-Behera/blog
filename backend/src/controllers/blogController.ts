@@ -103,7 +103,6 @@ const getAllBlogs = asyncHandler(async (req, res) => {
       $project: {
         _id: 1,
         title: 1,
-        content: 1,
         author: 1,
         createdAt: 1,
         updatedAt: 1,

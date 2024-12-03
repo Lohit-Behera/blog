@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Avatar from "@/components/Avatar";
+import { format } from "date-fns";
 
 function BlogPage() {
   const { blogId } = useParams();
@@ -36,7 +37,9 @@ function BlogPage() {
           <p className="text-sm md:text-base">{blog?.authorName}</p>
         </CardTitle>
         <CardTitle>{blog?.title}</CardTitle>
-        <CardDescription>{blog.createdAt}</CardDescription>
+        <CardDescription>
+          {blog.createdAt ? format(blog.createdAt, "PPP") : ""}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div dangerouslySetInnerHTML={{ __html: blog?.content }} />

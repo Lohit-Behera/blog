@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl } from "@/lib/proxy";
 
-type Blog = {
+export type Blog = {
   _id: string;
   title: string;
   content: string;
@@ -10,6 +10,19 @@ type Blog = {
   authorName: string;
   createdAt: string;
   updatedAt: string;
+};
+
+type AllBlogs = {
+  docs: Blog[];
+  totalDocs: number;
+  limit: number;
+  page: number;
+  totalPages: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
 };
 
 export const fetchCreateBlog = createAsyncThunk(
@@ -96,7 +109,7 @@ const blogSlice = createSlice({
     getBlogStatus: "idle",
     getBlogError: {},
 
-    getAllBlogs: null,
+    getAllBlogs: { data: {} as AllBlogs },
     getAllBlogsStatus: "idle",
     getAllBlogsError: {},
   },
