@@ -1,12 +1,39 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
+import Header from "./components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "./store/store";
+import { fetchUserDetails } from "./features/UserSlice";
+import { useEffect } from "react";
 
 function Layout() {
+  const dispatch = useDispatch<AppDispatch>();
+  const userInfo = useSelector((state: RootState) => state.user.userInfo);
+  const userDetailsStatus = useSelector(
+    (state: RootState) => state.user.userDetailsStatus
+  );
+  const userDetailsError = useSelector(
+    (state: RootState) => state.user.userDetailsError
+  );
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(fetchUserDetails());
+    }
+  }, []);
   return (
     <div className="min-h-[100vh] flex flex-col">
-      <main className="flex-1 flex justify-center items-center my-6">
-        <ScrollRestoration />
-        <Outlet />
-      </main>
+      {userDetailsStatus === "loading" ? (
+        <p>Loading</p>
+      ) : userDetailsStatus === "failed" ? (
+        <p>Error</p>
+      ) : userDetailsStatus === "succeeded" || userDetailsStatus === "idle" ? (
+        <>
+          <Header />
+          <main className="flex-1 flex justify-center items-center my-6">
+            <ScrollRestoration />
+            <Outlet />
+          </main>
+        </>
+      ) : null}
     </div>
   );
 }

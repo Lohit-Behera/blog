@@ -5,14 +5,19 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 
 import Layout from "./Layout";
 import HomePage from "@/pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<HomePage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Route>
   ),
   {
@@ -29,6 +34,7 @@ const router = createBrowserRouter(
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Toaster richColors />
       <RouterProvider router={router}></RouterProvider>
     </ThemeProvider>
   );
