@@ -7,6 +7,7 @@ import Avatar from "@/components/Avatar";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import ServerErrorPage from "./Error/ServerErrorPage";
+import HomePageLoader from "@/components/loader/HomePageLoader";
 
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +25,7 @@ function HomePage() {
   return (
     <>
       {getAllBlogsStatus === "loading" ? (
-        <p>Loading</p>
+        <HomePageLoader />
       ) : getAllBlogsStatus === "failed" ? (
         <ServerErrorPage />
       ) : getAllBlogsStatus === "succeeded" ? (
@@ -45,7 +46,7 @@ function HomePage() {
                     </CardTitle>
                     <CardTitle>
                       <Link
-                        className="hover:underline"
+                        className="hover:underline line-clamp-1"
                         to={`/post/${blog._id}`}
                       >
                         {blog.title}

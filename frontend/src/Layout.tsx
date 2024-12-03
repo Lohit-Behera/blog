@@ -36,7 +36,7 @@ function Layout() {
   return (
     <div className="min-h-[100vh] flex flex-col justify-center items-center">
       {userDetailsStatus === "loading" ? (
-        <GlobalLoader className="" />
+        <GlobalLoader />
       ) : userDetailsStatus === "failed" ? (
         <ServerErrorPage />
       ) : userDetailsStatus === "succeeded" || userDetailsStatus === "idle" ? (
