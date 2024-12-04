@@ -88,6 +88,8 @@ Clone the repository:
   cd blog
 ```
 
+Change .env.sample to .env in both backend and frontend
+
 **Running using [Docker](https://www.docker.com/)**
 
 in root directory
@@ -99,6 +101,8 @@ in root directory
 Then go to [localhost:5173](http://localhost:5173/) for frontend and [localhost:8000](http://localhost:8000/) for backend
 
 **Running without Docker**
+
+Change .env.sample to .env in both backend and frontend and add mongodb uri to the .env file in backend.
 
 change directory to backend
 
