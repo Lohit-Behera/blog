@@ -48,7 +48,7 @@ function BlogPage() {
             </CardTitle>
             <CardTitle>{blog?.title}</CardTitle>
             <CardDescription>
-              {blog.createdAt ? format(blog.createdAt, "PPP") : ""}
+              {blog?.createdAt ? format(blog.createdAt, "PPP") : ""}
             </CardDescription>
           </CardHeader>
           <CardContent>

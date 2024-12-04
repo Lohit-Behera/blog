@@ -13,6 +13,8 @@ import Paginator from "@/components/paginator";
 function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const [searchParams] = useSearchParams();
+  console.log(Number(searchParams.get("page")));
+
   const data = useSelector((state: RootState) => state.blog.getAllBlogs.data);
   const blogs = data.docs || [];
   const getAllBlogsStatus = useSelector(
@@ -20,7 +22,11 @@ function HomePage() {
   );
 
   useEffect(() => {
-    dispatch(fetchGetAllBlogs(Number(searchParams.get("page"))));
+    if (Number(searchParams.get("page")) >= 1) {
+      dispatch(fetchGetAllBlogs(Number(searchParams.get("page"))));
+    } else {
+      dispatch(fetchGetAllBlogs(1));
+    }
   }, [searchParams]);
 
   return (
@@ -58,7 +64,7 @@ function HomePage() {
                     <CardContent>
                       <p className="text-sm text-muted-foreground">
                         Created At:{" "}
-                        {blog.createdAt ? format(blog.createdAt, "PPP") : ""}
+                        {blog?.createdAt ? format(blog.createdAt, "PPP") : ""}
                       </p>
                     </CardContent>
                   </Card>
