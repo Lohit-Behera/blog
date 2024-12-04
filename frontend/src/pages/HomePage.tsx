@@ -4,23 +4,26 @@ import { RootState, AppDispatch } from "@/store/store";
 import { Blog, fetchGetAllBlogs } from "@/features/blogSlice";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Avatar from "@/components/Avatar";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import ServerErrorPage from "./Error/ServerErrorPage";
 import HomePageLoader from "@/components/loader/HomePageLoader";
 import Paginator from "@/components/paginator";
+import { Button } from "@/components/ui/button";
 
 function HomePage() {
-  const dispatch = useDispatch<AppDispatch>();
   const [searchParams] = useSearchParams();
-  console.log(Number(searchParams.get("page")));
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const data = useSelector((state: RootState) => state.blog.getAllBlogs.data);
   const blogs = data.docs || [];
   const getAllBlogsStatus = useSelector(
     (state: RootState) => state.blog.getAllBlogsStatus
   );
-
+  const getAllBlogsError = useSelector(
+    (state: RootState) => state.blog.getAllBlogsError
+  );
   useEffect(() => {
     if (Number(searchParams.get("page")) >= 1) {
       dispatch(fetchGetAllBlogs(Number(searchParams.get("page"))));
@@ -34,7 +37,18 @@ function HomePage() {
       {getAllBlogsStatus === "loading" ? (
         <HomePageLoader />
       ) : getAllBlogsStatus === "failed" ? (
-        <ServerErrorPage />
+        <>
+          {getAllBlogsError === "There are no blogs." ? (
+            <div className="grid gap-4">
+              <h3 className="text-lg font-semibold">No Blogs Found</h3>
+              <Button size="sm" onClick={() => navigate("/create")}>
+                Create Blog
+              </Button>
+            </div>
+          ) : (
+            <ServerErrorPage />
+          )}
+        </>
       ) : getAllBlogsStatus === "succeeded" ? (
         <>
           {!blogs.length || blogs.length === 0 ? (

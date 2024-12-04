@@ -79,7 +79,6 @@ export const fetchGetBlog = createAsyncThunk(
 export const fetchGetAllBlogs = createAsyncThunk(
   "blog/getAll",
   async (page: number, { rejectWithValue }) => {
-    console.log(page);
     try {
       const config = {
         headers: {
