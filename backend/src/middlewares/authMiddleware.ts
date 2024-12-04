@@ -25,13 +25,19 @@ export const authMiddleware = asyncHandler(
       const isAccessTokenExpired = isTokenExpired(token);
 
       if (!req.cookies.accessToken || isAccessTokenExpired) {
-        const refreshToken: string | undefined = req.cookies.refreshToken;
+        let refreshToken: string | undefined = req.cookies.refreshToken;
 
         // Check if refresh token is missing
         if (!refreshToken) {
-          return res
-            .status(401)
-            .json(new ApiResponse(401, {}, "You are Unauthorized"));
+          const user = await User.findById(
+            JSON.parse(req.cookies.userInfoBlog)._id
+          );
+          if (!user) {
+            return res
+              .status(401)
+              .json(new ApiResponse(401, {}, "Invalid token"));
+          }
+          refreshToken = user.refreshToken || "";
         }
 
         // Check if the refresh token is expired

@@ -34,7 +34,7 @@ function Layout() {
     }
   }, [userDetailsError]);
   return (
-    <div className="min-h-[100vh] flex flex-col justify-center items-center">
+    <div className="w-full min-h-[100vh] flex flex-col justify-center items-center">
       {userDetailsStatus === "loading" ? (
         <GlobalLoader />
       ) : userDetailsStatus === "failed" ? (
@@ -42,7 +42,7 @@ function Layout() {
       ) : userDetailsStatus === "succeeded" || userDetailsStatus === "idle" ? (
         <ErrorBoundary fallback={<SomethingWentWrong />}>
           <Header />
-          <main className="flex-1 flex justify-center items-center my-6">
+          <main className="w-full flex-1 flex justify-center items-center my-6">
             <ScrollRestoration />
             <Outlet />
           </main>

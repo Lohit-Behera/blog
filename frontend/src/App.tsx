@@ -17,6 +17,7 @@ import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/ContactPage";
 import PageNotFound from "./pages/Error/PageNotFound";
 import TokenExpired from "./pages/TokenExpired";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,6 +50,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <BlogPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile/:id"
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
           </ProtectedRoute>
         }
       />

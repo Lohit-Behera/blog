@@ -111,8 +111,8 @@ const getAllBlogs = asyncHandler(async (req, res) => {
     },
   ]);
   const blogs = await Blog.aggregatePaginate(aggregate, {
-    page: 1,
-    limit: 10,
+    page: Number(req.query.page) || 1,
+    limit: 12,
   });
   if (!blogs) {
     return res.status(404).json(new ApiResponse(404, null, "Blogs not found."));

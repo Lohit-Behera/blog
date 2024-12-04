@@ -78,7 +78,8 @@ export const fetchGetBlog = createAsyncThunk(
 
 export const fetchGetAllBlogs = createAsyncThunk(
   "blog/getAll",
-  async (_, { rejectWithValue }) => {
+  async (page: number, { rejectWithValue }) => {
+    console.log(page);
     try {
       const config = {
         headers: {
@@ -86,7 +87,10 @@ export const fetchGetAllBlogs = createAsyncThunk(
         },
         withCredentials: true,
       };
-      const { data } = await axios.get(`${baseUrl}/api/v1/blogs/all`, config);
+      const { data } = await axios.get(
+        `${baseUrl}/api/v1/blogs/all?page=${page}`,
+        config
+      );
       return data;
     } catch (error: any) {
       const errorMessage =

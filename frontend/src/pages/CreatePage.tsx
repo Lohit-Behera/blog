@@ -59,7 +59,7 @@ function CreatePage() {
     });
   };
   return (
-    <div className="w-[98%] md:w-[90%] mx-auto bg-accent p-4 rounded-lg my-10">
+    <div className="w-[98%] md:w-[90%] bg-muted dark:bg-muted/50 p-4 rounded-lg my-10">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
